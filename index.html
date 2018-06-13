@@ -12,19 +12,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="assets/javascript/game.js"></script>  
 </head>
-<body background="assets/images/background.jpg" onload="game();">
+<body background="assets/images/background.jpg" onload="setup();">
     <div class = "wrapper">
         <div class="container">
         <h1>♦ Steven Universe RPG! ♦</h1>
-        <div id="chosen-character">
+        <div id="content">
             <p>Defenders Available To Choose:</p>
         </div>
-        <button id="pearl" class="defender"></button>  
-        <button id="stevonnie" class="defender"></button>
-        <button id="amethyst" class="defender"></button>
-        <button id="garnet" class="defender"></button>
-        <table><tr><td></td></tr></table>
+        <div id="chosen-character">
+            <button id="pearl" class="defender"></button>  
+            <button id="stevonnie" class="defender"></button>
+            <button id="amethyst" class="defender"></button>
+            <button id="garnet" class="defender"></button>    
+        </div>
         <div id="chosen-enemy"></div>
+        <div id ="attack-button"></div>
+        <br>
+        <table><tr><td></td></tr></table>
+        <div id="all-enemies"></div>
         <button id="aquamarine" class="enemy"></button>  
         <button id="agate" class="enemy"></button>
         <button id="jasper" class="enemy"></button>

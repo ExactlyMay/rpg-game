@@ -12,6 +12,16 @@ Padding: Top/Right is 40px, Right/Left is 10px */
     position: relative;
 }
 
+#chosen-character {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+  }
+
+#chosen-enemy {
+    overflow: hidden;
+  }
+
 body{
     background-repeat: no-repeat;
     background-size: auto;

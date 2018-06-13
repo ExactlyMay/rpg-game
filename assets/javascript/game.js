@@ -1,27 +1,26 @@
 var defenders = [
-    {name: "Pearl", image: "pearl.png", hp: 100},
-    {name: "Stevonnie", image: "stevonnie.png", hp: 120},
-    {name: "Amethyst", image: "amethyst.png", hp: 150},
-    {name: "Garnet", image: "garnet.png", hp: 180}
+    {name: "Pearl", image: "pearl.png", health: 100, attack: 6},
+    {name: "Stevonnie", image: "stevonnie.png", health: 120, attack: 8},
+    {name: "Amethyst", image: "amethyst.png", health: 150, attack: 10},
+    {name: "Garnet", image: "garnet.png", health: 180, attack: 12}
   ];
 var enemies = [
-    {name: "Aquamarine", image: "aquamarine.png", hp: 100},
-    {name: "Agate", image: "agate.png", hp: 120},
-    {name: "Jasper", image: "jasper.png", hp: 150},
-    {name: "Topaz", image: "topaz.png", hp: 180}
+    {name: "Aquamarine", image: "aquamarine.png", health: 100, attack: 5},
+    {name: "Agate", image: "agate.png", health: 120, attack: 10},
+    {name: "Jasper", image: "jasper.png", health: 150, attack: 20},
+    {name: "Topaz", image: "topaz.png", health: 180, attack: 25}
   ];
-var characterChosen = false;
+var characterChosen;
 var enemyChosen = false;
-var healthPoints, attackPower, counterAttackPower;
 
-function game () {
+function setup () {
     
     defenders.forEach(function(obj) {
         var defenderImage = $("<img>");
         defenderImage.attr("src", "assets/images/" + obj.name + ".png").height(225).width(200);
         $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.name + "</p>");
         $( "#" + obj.name.toLowerCase() ).append(defenderImage);
-        $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.hp + "</p>");
+        $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.health + "</p>");
     });
 
     enemies.forEach(function(obj) {
@@ -29,18 +28,13 @@ function game () {
         enemyImage.attr("src", "assets/images/" + obj.name + ".png").height(225).width(200);
         $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.name + "</p>");
         $( "#" + obj.name.toLowerCase() ).append(enemyImage);
-        $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.hp + "</p>");
+        $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.health + "</p>");
         $( "#" + obj.name.toLowerCase() ).hide();
     });
 
-    // $('#myButton').click(function() {
-    //     $.each(myArray, function() {
-    //         $(this).hide();
-    //     });
-    //  });
-
     $(".defender").on("click", function(){
-        $( "#chosen-character" ).html("<p>Your Character: </p>");
+        $( "#content" ).html("");
+        $( "#chosen-character" ).prepend("<p>Your Character: </p>");
         characterChosen = true;        
         var charString = this.id;
         defenders.forEach(function(obj) {
@@ -53,45 +47,48 @@ function game () {
     });
 
     $(".enemy").on("click", function(){
-        $( "#chosen-enemy" ).html("<p>Your Enemy: </p>");
-        $("#fight").html("<br/><button id='attack'><p>Attack</p></button>");
+        $("#chosen-character").css("width", "50%");
         enemyChosen = true;
         var enemString = this.id;
         enemies.forEach(function(obj) {
-            if( enemString !== (obj.name.toLowerCase()))
-            {
-                $( "#" + obj.name.toLowerCase() ).hide();
+            if( enemString === (obj.name.toLowerCase())){      
+                $("#chosen-enemy").append("<p>Your Enemy: </p>");
+                $( "#" + obj.name.toLowerCase() ).appendTo("#chosen-enemy");
+                $("#attack-button").append("<br><button id='attack'><p>Attack</p></button><br>");
             }
         });
+        game();
     });
 
-    
 
-    // $("#number").html("<p id='number-text'>Random Number:<br/>" + randomNumber + "</p>");
-    // $("#wins-losses").html("<p id='wins-losses-text'>Wins:  " + wins + "<br/>Losses: " + losses + "</p>");
-    // $("#total-score").html("<p id='score-text'>Your total score is:  <br/>" + score + "</p>");
-    
-    // $("button").on("click", function(){
-    //     switch(this.id)
-    //     {
-    //         case "stevonnie":
-    //             console.log("You picked Stevonnie!");
-    //             break;
-    //         case "garnet":
-    //             console.log("You picked Garnet!");
-    //             break;
-    //         case "amethyst":
-    //             console.log("You picked Amethyst!");
-    //             break;
-    //         case "pearl":
-    //             console.log("You picked Pearl!");
-    //             break;
-    //     }
-    //     $("#total-score").html("<p id='score-text'>Your total score is:  <br/>" + score + "</p>");
-    //     calculateScore();
-    // })
 
+    $("#attack-button").on("click", function(){
+        // console.log("Health: " + enemies[this.index].health);
+        
+        var switchName = $( "button:visible" ).attr('id');
+        console.log(switchName);
+
+        switch ($( "button:visible" ).attr('id'))
+        {
+            case "pearl":
+            console.log("Pearl: " + defenders[this.index].health);
+            break;
+            case "stevonnie":
+            console.log("Stevvie: "+ defenders['stevonnie'].health);
+            break;
+            case "amethyst":
+            console.log("Ammy: "+ defenders['amethyst'].health);
+            break;
+            case "garnet":
+            console.log("Garnet: "+ defenders[this.index].health);
+            break;
+        }
+     });
 };
+// $( "button" ).click(function() {
+//     $( "button:visible" ).show( "fast" );
+//   });
+
 
 // function calculateAttack(){
 //     if (score === randomNumber){
@@ -116,17 +113,29 @@ function game () {
 //     $("#number").html("<p id='number-text'>Random Number:<br/>" + randomNumber + "</p>");
 //     $("#total-score").html("<p id='score-text'>Your total score is:  <br/>" + score + "</p>");
 // };
-// Health Points, Attack Power and Counter Attack Power.
-function defenderStats(hp, ap, cap) {
-    healthPoints = hp; 
-    attackPower = ap;
-    counterAttackPower = cap;
+
+function game() {
+    // $(".defender").on("click", function(){
+    //     $( "#content" ).html("<p>Defenders Available To Choose:</p>");
+    //     $( "#chosen-character" ).html("");
+    //     characterChosen = false;        
+    //     defenders.forEach(function(obj) {
+    //         $( "#" + obj.name.toLowerCase() ).show();
+    //     });
+    //     hideEnemies();
+    // });
   };
 
 function showEnemies() {
-    $( "#chosen-enemy" ).html("<p>Enemies Available To Attack: </p>");
+    $( "#all-enemies" ).html("<p>Enemies Available To Attack: </p>");
     enemies.forEach(function(obj) {
         $( "#" + obj.name.toLowerCase() ).show();
     });
   };
-  
+
+function hideEnemies() {
+    $( "#chosen-enemy" ).html("");
+    enemies.forEach(function(obj) {
+        $( "#" + obj.name.toLowerCase() ).hide();
+    });
+  };
