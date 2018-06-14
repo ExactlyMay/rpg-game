@@ -17,7 +17,7 @@ function setup () {
     
     defenders.forEach(function(obj) {
         var defenderImage = $("<img>");
-        defenderImage.attr("src", "assets/images/" + obj.name + ".png").height(225).width(200);
+        defenderImage.attr("src", "assets/images/" + (obj.name).toLowerCase() + ".png").height(225).width(200);
         $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.name + "</p>");
         $( "#" + obj.name.toLowerCase() ).append(defenderImage);
         $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.health + "</p>");
@@ -25,7 +25,7 @@ function setup () {
 
     enemies.forEach(function(obj) {
         var enemyImage = $("<img>");
-        enemyImage.attr("src", "assets/images/" + obj.name + ".png").height(225).width(200);
+        enemyImage.attr("src", "assets/images/" + (obj.name).toLowerCase() + ".png").height(225).width(200);
         $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.name + "</p>");
         $( "#" + obj.name.toLowerCase() ).append(enemyImage);
         $( "#" + obj.name.toLowerCase() ).append("<p>" + obj.health + "</p>");
